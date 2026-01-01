@@ -8,21 +8,6 @@
 </head>
 <body>
     <div id="spielfeld">
-        <!-- Gegner Bereich -->
-        <div id="gegner-hand" class="bereich">
-            <div class="bereich-titel">Gegner Hand (3 Karten)</div>
-            <div class="karten-container" id="gegner-hand-container">
-                <!-- Gegner Karten (verdeckt) -->
-            </div>
-        </div>
-
-        <div id="gegner-feld" class="bereich">
-            <div class="bereich-titel">Gegner Spielfeld</div>
-            <div class="karten-container" id="gegner-feld-container">
-                <!-- Gespielte Karten des Gegners -->
-            </div>
-        </div>
-
         <!-- Spieler Bereich -->
         <div id="spieler-feld" class="bereich">
             <div class="bereich-titel">Dein Spielfeld</div>
@@ -42,14 +27,26 @@
     <!-- Info Panel -->
     <div class="info-bereich">
         <div class="info-zeile">
-            <span>Deck:</span>
-            <span id="deck-anzahl">30</span>
+            <span>Runde 1:</span>
+            <span id="deck-anzahl">0/10</span>
         </div>
         <div class="info-zeile">
-            <span>Ablagestapel:</span>
-            <span id="ablagestapel-anzahl">0</span>
+            <span>Eine Kachel:</span>
+            <span id="ablagestapel-anzahl">1 Punkt</span>
         </div>
-        <button id="karte-ziehen-btn">Karte ziehen</button>
+        <div class="info-zeile">
+            <span>Zwei Kacheln:</span>
+            <span id="ablagestapel-anzahl">4 Punkt</span>
+        </div>
+        <div class="info-zeile">
+            <span>Drei Kacheln:</span>
+            <span id="ablagestapel-anzahl">8 Punkt</span>
+        </div>
+        <div class="info-zeile">
+            <span>Vier Kacheln:</span>
+            <span id="ablagestapel-anzahl">13 Punkt</span>
+        </div>
+        <button id="karte-ziehen-btn">Runde beenden</button>
     </div>
 
     <script src="script.js"></script>

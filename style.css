@@ -33,15 +33,6 @@ body {
     margin-bottom: 10px;
 }
 
-#gegner-hand {
-    flex: 0 0 80px;
-}
-
-#gegner-feld {
-    flex: 1;
-    min-height: 150px;
-}
-
 #spieler-feld {
     flex: 1;
     min-height: 150px;
@@ -51,62 +42,6 @@ body {
     flex: 0 0 120px;
 }
 
-.karten-container {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.karte {
-    width: 80px;
-    height: 110px;
-    background: linear-gradient(145deg, #667eea 0%, #764ba2 100%);
-    border: 2px solid #fff;
-    border-radius: 8px;
-    padding: 8px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.karte:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.karte-name {
-    font-size: 11px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.karte-kosten {
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-}
-
-.karte-effekt {
-    font-size: 9px;
-    text-align: center;
-    opacity: 0.9;
-}
-
-.gegner-karte {
-    background: linear-gradient(145deg, #434343 0%, #000000 100%);
-}
-
 .info-bereich {
     position: fixed;
     top: 20px;
@@ -114,7 +49,7 @@ body {
     background: rgba(0, 0, 0, 0.7);
     padding: 15px;
     border-radius: 10px;
-    min-width: 150px;
+    min-width: 200px;
 }
 
 .info-zeile {
