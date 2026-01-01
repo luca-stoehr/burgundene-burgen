@@ -9,11 +9,16 @@ const spielbrett = [
 ];
 
 const wuerfelFarben = ["blau", "gruen", "lila", "orange", "grau", "hellgruen"];
+const wuerfelZug = [
+    { wert: 1, gewicht: 4 },
+    { wert: 2, gewicht: 2 }
+];
 
 
 // Spielzustand
     let punkte = 0;
     let runde = 1;
+    let zug = 0;
     let wuerfel1 = 0;
     let wuerfel2 = 0;
     let farbWuerfel1 = null;
@@ -58,15 +63,17 @@ const wuerfelFarben = ["blau", "gruen", "lila", "orange", "grau", "hellgruen"];
     function wuerfeln() {
         wuerfel1 = Math.floor(Math.random() * 6) + 1;
         wuerfel2 = Math.floor(Math.random() * 6) + 1;
-        farbwuerfel1 = wuerfelFarben[Math.floor(Math.random() * wuerfelFarben.length)];
-        farbwuerfel2 = wuerfelFarben[Math.floor(Math.random() * wuerfelFarben.length)];
+        farbWuerfel1 = wuerfelFarben[Math.floor(Math.random() * wuerfelFarben.length)];
+        farbWuerfel2 = wuerfelFarben[Math.floor(Math.random() * wuerfelFarben.length)];
+        turnWuerfel = weighted_random(wuerfelZug);
+        zug = zug+turnWuerfel;
 
         document.getElementById('wuerfel-1').textContent = wuerfel1;
         document.getElementById('wuerfel-2').textContent = wuerfel2;
-        document.getElementById('farbwuerfel1').innerHTML = `<span class="kreis ${farbwuerfel1}"></span>`;
-        document.getElementById('farbwuerfel2').innerHTML = `<span class="kreis ${farbwuerfel2}"></span>`;
-        document.getElementById('plaettchen-info').textContent = 
-            `Gewürfelt: ${wuerfel1} und ${wuerfel2}. Wähle ein Feld!`;
+        document.getElementById('farbwuerfel1').innerHTML = `<span class="kreis ${farbWuerfel1}"></span>`;
+        document.getElementById('farbwuerfel2').innerHTML = `<span class="kreis ${farbWuerfel2}"></span>`;
+        document.getElementById('wuerfel-turn').textContent = turnWuerfel;
+        document.getElementById('zug-anzahl').textContent = `${zug}/10`;
     }
 
     // Hexagon angeklickt
@@ -112,6 +119,27 @@ const wuerfelFarben = ["blau", "gruen", "lila", "orange", "grau", "hellgruen"];
         runde++;
         document.getElementById('runde').textContent = runde;
     }
+
+// Hintergrundfunktionen
+
+    function weighted_random(options) {
+        var i;
+
+        var weights = [options[0].gewicht];
+
+        for (i = 1; i < options.length; i++)
+            weights[i] = options[i].gewicht + weights[i - 1];
+        
+        var random = Math.random() * weights[weights.length - 1];
+        
+        for (i = 0; i < weights.length; i++)
+            if (weights[i] > random)
+                break;
+        
+        return options[i].wert;
+    }
+
+// Hauptprogramm
 
     // Event Listeners
     document.getElementById('nächste-runde').addEventListener('click', wuerfeln);
