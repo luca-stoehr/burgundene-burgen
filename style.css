@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #721e6a 0%, #2a5298 100%);
+    background: linear-gradient(135deg, #d8b17e 0%, #836f51 100%);
     color: white;
     overflow: hidden;
 }
@@ -61,28 +61,28 @@ body {
 }
 
 /* Farben für verschiedene Gebietstypen */
-.hex-gelb {
-    background: linear-gradient(145deg, #FFD700, #FFA500);
+.hex-orange {
+    background: linear-gradient(145deg, #ffa600, #ff7b00);
 }
 
 .hex-gruen {
-    background: linear-gradient(145deg, #90EE90, #228B22);
+    background: linear-gradient(145deg, #005e00, #228B22);
 }
 
 .hex-blau {
-    background: linear-gradient(145deg, #87CEEB, #4682B4);
+    background: linear-gradient(145deg, #468cf7, #1502bb);
 }
 
 .hex-grau {
-    background: linear-gradient(145deg, #D3D3D3, #808080);
+    background: linear-gradient(145deg, #d3d3d3b7, #80808083);
 }
 
 .hex-hellgruen {
-    background: linear-gradient(145deg, #98FB98, #3CB371);
+    background: linear-gradient(145deg, #e6ff59, #b2fc28);
 }
 
-.hex-braun {
-    background: linear-gradient(145deg, #D2691E, #8B4513);
+.hex-lila {
+    background: linear-gradient(145deg, #a21fee, #550475);
 }
 
 .info-bereich {
@@ -127,10 +127,11 @@ button:hover {
     padding: 15px;
     border-radius: 10px;
     min-width: 200px;
-    display: flex;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    justify-content: center;
-    margin: 20px 0;
+    justify-items: center;
 }
 
 .wuerfel {
@@ -145,4 +146,34 @@ button:hover {
     font-size: 32px;
     font-weight: bold;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.kreis {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.kreis.orange {
+    background: linear-gradient(145deg, #e78300, #ff7b00);
+}
+
+.kreis.gruen {
+    background: linear-gradient(145deg, #228B22, #005e00);
+}
+
+.kreis.blau {
+    background: linear-gradient(145deg, #468cf7, #1502bb);
+}
+
+.kreis.grau {
+    background: linear-gradient(145deg, #d3d3d3b7, #80808083);
+}
+
+.kreis.hellgruen {
+    background: linear-gradient(145deg, #e6ff59, #b2fc28);
+}
+
+.kreis.lila {
+    background: linear-gradient(145deg, #a21fee, #550475);
 }

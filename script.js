@@ -1,14 +1,24 @@
-const spielbrett = fetch('data/playgrounds.json')
-  .then(response => response.json())
-  .then(data => {
-    erstelleSpielfeld(data.standard.layout);
-  });
+const spielbrett = [
+    ["blau", "blau", "grau", "grau"],
+    ["orange", "orange", "lila", "lila", "orange"],
+    ["orange", "gruen", "hellgruen", "hellgruen", "gruen", "lila"],
+    ["orange", "blau", "blau", "lila", "orange", "orange", "orange"],
+    ["hellgruen", "gruen", "lila", "blau", "gruen", "hellgruen"],
+    ["hellgruen", "grau", "blau", "lila", "lila"],
+    ["grau", "orange", "hellgruen", "hellgruen"]
+];
+
+const wuerfelFarben = ["blau", "gruen", "lila", "orange", "grau", "hellgruen"];
+
 
 // Spielzustand
     let punkte = 0;
     let runde = 1;
     let wuerfel1 = 0;
     let wuerfel2 = 0;
+    let farbWuerfel1 = null;
+    let farbWuerfel2 = null;
+    let turnWuerfel = null;
     let spielfeldZustand = [];
 
     // Initialisiere Spielfeld-Zustand
@@ -48,9 +58,13 @@ const spielbrett = fetch('data/playgrounds.json')
     function wuerfeln() {
         wuerfel1 = Math.floor(Math.random() * 6) + 1;
         wuerfel2 = Math.floor(Math.random() * 6) + 1;
+        farbwuerfel1 = wuerfelFarben[Math.floor(Math.random() * wuerfelFarben.length)];
+        farbwuerfel2 = wuerfelFarben[Math.floor(Math.random() * wuerfelFarben.length)];
 
-        document.getElementById('wuerfel1').textContent = wuerfel1;
-        document.getElementById('wuerfel2').textContent = wuerfel2;
+        document.getElementById('wuerfel-1').textContent = wuerfel1;
+        document.getElementById('wuerfel-2').textContent = wuerfel2;
+        document.getElementById('farbwuerfel1').innerHTML = `<span class="kreis ${farbwuerfel1}"></span>`;
+        document.getElementById('farbwuerfel2').innerHTML = `<span class="kreis ${farbwuerfel2}"></span>`;
         document.getElementById('plaettchen-info').textContent = 
             `Gewürfelt: ${wuerfel1} und ${wuerfel2}. Wähle ein Feld!`;
     }
@@ -100,7 +114,7 @@ const spielbrett = fetch('data/playgrounds.json')
     }
 
     // Event Listeners
-    document.getElementById('wuerfeln-btn').addEventListener('click', wuerfeln);
+    document.getElementById('nächste-runde').addEventListener('click', wuerfeln);
 
     // Spiel initialisieren
     initSpielfeld();
