@@ -1,0 +1,140 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #721e6a 0%, #2a5298 100%);
+    color: white;
+    overflow: hidden;
+}
+
+#spielfeld {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 20px;
+    gap: 15px;
+}
+
+.bereich {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.bereich-titel {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+#gegner-hand {
+    flex: 0 0 80px;
+}
+
+#gegner-feld {
+    flex: 1;
+    min-height: 150px;
+}
+
+#spieler-feld {
+    flex: 1;
+    min-height: 150px;
+}
+
+#spieler-hand {
+    flex: 0 0 120px;
+}
+
+.karten-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.karte {
+    width: 80px;
+    height: 110px;
+    background: linear-gradient(145deg, #667eea 0%, #764ba2 100%);
+    border: 2px solid #fff;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.karte:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.karte-name {
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.karte-kosten {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.karte-effekt {
+    font-size: 9px;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.gegner-karte {
+    background: linear-gradient(145deg, #434343 0%, #000000 100%);
+}
+
+.info-bereich {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    min-width: 150px;
+}
+
+.info-zeile {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+button {
+    background: #667eea;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #764ba2;
+}
