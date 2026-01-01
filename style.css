@@ -19,27 +19,70 @@ body {
     gap: 15px;
 }
 
-.bereich {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
-    padding: 15px;
-    backdrop-filter: blur(10px);
+.hex-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: -5px;
 }
 
-.bereich-titel {
-    font-size: 14px;
-    opacity: 0.8;
-    margin-bottom: 10px;
+.hex-row {
+    display: flex;
+    gap: 5px;
+    margin: -15px 0;
 }
 
-#spieler-feld {
-    flex: 1;
-    min-height: 150px;
+.hexagon {
+    width: 60px;
+    height: 69px;
+    position: relative;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    border: 2px solid rgba(0, 0, 0, 0.3);
 }
 
-#spieler-hand {
-    flex: 0 0 120px;
+.hexagon:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+.hexagon.leer {
+    opacity: 0.7;
+}
+
+.hexagon.belegt {
+    opacity: 1;
+}
+
+/* Farben für verschiedene Gebietstypen */
+.hex-gelb {
+    background: linear-gradient(145deg, #FFD700, #FFA500);
+}
+
+.hex-gruen {
+    background: linear-gradient(145deg, #90EE90, #228B22);
+}
+
+.hex-blau {
+    background: linear-gradient(145deg, #87CEEB, #4682B4);
+}
+
+.hex-grau {
+    background: linear-gradient(145deg, #D3D3D3, #808080);
+}
+
+.hex-hellgruen {
+    background: linear-gradient(145deg, #98FB98, #3CB371);
+}
+
+.hex-braun {
+    background: linear-gradient(145deg, #D2691E, #8B4513);
 }
 
 .info-bereich {
@@ -68,8 +111,31 @@ button {
     cursor: pointer;
     font-size: 14px;
     margin-top: 10px;
+    margin:0 auto;
+    display: block;
 }
 
 button:hover {
     background: #764ba2;
+}
+
+.wuerfel-bereich {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.wuerfel {
+    width: 60px;
+    height: 60px;
+    background: white;
+    color: black;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }

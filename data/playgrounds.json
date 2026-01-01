@@ -1,0 +1,14 @@
+{
+  "standard": {
+    "name": "Spielbrett A",
+    "layout": [
+      ["gelb", "grün", "blau", "grau"],
+      ["gelb", "grün", "grün", "blau", "grau"],
+      ["gelb", "gelb", "grün", "blau", "blau", "grau"],
+      ["gelb", "grün", "grün", "blau", "grau", "grau", "hellgrün"],
+      ["gelb", "grün", "blau", "blau", "grau", "hellgrün"],
+      ["gelb", "grün", "blau", "grau", "hellgrün"],
+      ["gelb", "blau", "grau", "hellgrün"]
+    ]
+    }
+}

@@ -3,51 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorcerer - Kartenspiel</title>
+    <title>Burgen von Burgund</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="spielfeld">
-        <!-- Spieler Bereich -->
-        <div id="spieler-feld" class="bereich">
-            <div class="bereich-titel">Dein Spielfeld</div>
-            <div class="karten-container" id="spieler-feld-container">
-                <!-- Deine gespielten Karten -->
+        <div class="info-bereich">
+            <div class="info-zeile">
+                <span>Runde 1:</span>
+                <span id="deck-anzahl">0/10</span>
             </div>
-        </div>
-
-        <div id="spieler-hand" class="bereich">
-            <div class="bereich-titel">Deine Hand</div>
-            <div class="karten-container" id="spieler-hand-container">
-                <!-- Deine Handkarten -->
+            <br>
+            <div class="info-zeile">
+                <span>Eine Kachel:</span>
+                <span id="ablagestapel-anzahl">1 Punkt</span>
             </div>
+            <div class="info-zeile">
+                <span>Zwei Kacheln:</span>
+                <span id="ablagestapel-anzahl">4 Punkt</span>
+            </div>
+            <div class="info-zeile">
+                <span>Drei Kacheln:</span>
+                <span id="ablagestapel-anzahl">8 Punkt</span>
+            </div>
+            <div class="info-zeile">
+                <span>Vier Kacheln:</span>
+                <span id="ablagestapel-anzahl">13 Punkt</span>
+            </div>
+            <br>
+            <div class="info-zeile">
+                <span>Punktzahl:</span>
+                <span id="ablagestapel-anzahl">0 Punkte</span>
+            </div>
+            <br>
+            <button id="karte-ziehen-btn">Runde beenden</button>
         </div>
-    </div>
-
-    <!-- Info Panel -->
-    <div class="info-bereich">
-        <div class="info-zeile">
-            <span>Runde 1:</span>
-            <span id="deck-anzahl">0/10</span>
+        <div class="hex-grid" id="hex-grid">
+            <!-- Wird mit JavaScript gefüllt -->
         </div>
-        <div class="info-zeile">
-            <span>Eine Kachel:</span>
-            <span id="ablagestapel-anzahl">1 Punkt</span>
-        </div>
-        <div class="info-zeile">
-            <span>Zwei Kacheln:</span>
-            <span id="ablagestapel-anzahl">4 Punkt</span>
-        </div>
-        <div class="info-zeile">
-            <span>Drei Kacheln:</span>
-            <span id="ablagestapel-anzahl">8 Punkt</span>
-        </div>
-        <div class="info-zeile">
-            <span>Vier Kacheln:</span>
-            <span id="ablagestapel-anzahl">13 Punkt</span>
-        </div>
-        <button id="karte-ziehen-btn">Runde beenden</button>
-    </div>
+    </div>    
 
     <script src="script.js"></script>
 </body>

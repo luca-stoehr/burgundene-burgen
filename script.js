@@ -1,123 +1,108 @@
-// Beispiel-Kartendaten
-const beispielKarten = [
-    { id: 1, name: "Feuerball", kosten: 3, effekt: "5 Schaden" },
-    { id: 2, name: "Heilung", kosten: 2, effekt: "+3 Leben" },
-    { id: 3, name: "Blitz", kosten: 4, effekt: "7 Schaden" },
-    { id: 4, name: "Schild", kosten: 1, effekt: "+2 Rüstung" },
-    { id: 5, name: "Beschwörung", kosten: 5, effekt: "Kreatur" }
-];
+const spielbrett = fetch('data/playgrounds.json')
+  .then(response => response.json())
+  .then(data => {
+    erstelleSpielfeld(data.standard.layout);
+  });
 
 // Spielzustand
-let spielerHand = [];
-let spielerFeld = [];
-let gegnerHand = [];
-let gegnerFeld = [];
-let deck = [...beispielKarten, ...beispielKarten]; // Doppelt für mehr Karten
+let punkte = 0;
+let runde = 1;
+let wuerfel1 = 0;
+let wuerfel2 = 0;
+let spielfeldZustand = [];
 
-// Funktion zum Erstellen einer Karte (HTML Element)
-function erstelleKarteElement(karte, istGegner = false) {
-    const karteDiv = document.createElement('div');
-    karteDiv.className = istGegner ? 'karte gegner-karte' : 'karte';
-    karteDiv.dataset.id = karte.id;
-    
-    if (istGegner) {
-        karteDiv.innerHTML = `
-            <div class="karte-name">???</div>
-            <div class="karte-kosten">?</div>
-        `;
-    } else {
-        karteDiv.innerHTML = `
-            <div class="karte-name">${karte.name}</div>
-            <div class="karte-kosten">${karte.kosten}</div>
-            <div class="karte-effekt">${karte.effekt}</div>
-        `;
-        
-        // Karte ausspielen durch Klick
-        karteDiv.addEventListener('click', () => {
-            karteAusspielen(karte);
-        });
-    }
-    
-    return karteDiv;
+// Initialisiere Spielfeld-Zustand
+function initSpielfeld() {
+    spielfeldZustand = spielbrett.map(reihe => 
+        reihe.map(farbe => ({ farbe: farbe, belegt: false, plaettchen: null }))
+    );
 }
 
-// Karte ziehen
-function karteZiehen() {
-    if (deck.length === 0) {
-        alert("Keine Karten mehr im Deck!");
+// Erstelle Sechseck-Spielfeld
+function erstelleHexGrid() {
+    const hexGrid = document.getElementById('hex-grid');
+    hexGrid.innerHTML = '';
+
+    spielbrett.forEach((reihe, reiheIndex) => {
+        const hexRow = document.createElement('div');
+        hexRow.className = 'hex-row';
+
+        reihe.forEach((farbe, spalteIndex) => {
+            const hexagon = document.createElement('div');
+            hexagon.className = `hexagon hex-${farbe} leer`;
+            hexagon.dataset.reihe = reiheIndex;
+            hexagon.dataset.spalte = spalteIndex;
+            
+            hexagon.addEventListener('click', () => {
+                hexagonKlick(reiheIndex, spalteIndex);
+            });
+
+            hexRow.appendChild(hexagon);
+        });
+
+        hexGrid.appendChild(hexRow);
+    });
+}
+
+// Würfeln
+function wuerfeln() {
+    wuerfel1 = Math.floor(Math.random() * 6) + 1;
+    wuerfel2 = Math.floor(Math.random() * 6) + 1;
+
+    document.getElementById('wuerfel1').textContent = wuerfel1;
+    document.getElementById('wuerfel2').textContent = wuerfel2;
+    document.getElementById('plaettchen-info').textContent = 
+        `Gewürfelt: ${wuerfel1} und ${wuerfel2}. Wähle ein Feld!`;
+}
+
+// Hexagon angeklickt
+function hexagonKlick(reihe, spalte) {
+    const feld = spielfeldZustand[reihe][spalte];
+
+    if (wuerfel1 === 0 && wuerfel2 === 0) {
+        document.getElementById('plaettchen-info').textContent = 
+            'Bitte erst würfeln!';
         return;
     }
-    
-    const gezogeneKarte = deck.pop();
-    spielerHand.push(gezogeneKarte);
-    aktualisiereAnzeige();
-}
 
-// Karte ausspielen
-function karteAusspielen(karte) {
-    const index = spielerHand.findIndex(k => k.id === karte.id);
-    if (index !== -1) {
-        spielerHand.splice(index, 1);
-        spielerFeld.push(karte);
-        aktualisiereAnzeige();
-        console.log(`${karte.name} wurde ausgespielt!`);
+    if (feld.belegt) {
+        document.getElementById('plaettchen-info').textContent = 
+            'Dieses Feld ist bereits belegt!';
+        return;
     }
-}
 
-// Anzeige aktualisieren
-function aktualisiereAnzeige() {
-    // Spieler Hand
-    const spielerHandContainer = document.getElementById('spieler-hand-container');
-    spielerHandContainer.innerHTML = '';
-    spielerHand.forEach(karte => {
-        spielerHandContainer.appendChild(erstelleKarteElement(karte));
-    });
+    // Plättchen platzieren
+    feld.belegt = true;
+    feld.plaettchen = { wert: wuerfel1 + wuerfel2 };
 
-    // Spieler Feld
-    const spielerFeldContainer = document.getElementById('spieler-feld-container');
-    spielerFeldContainer.innerHTML = '';
-    spielerFeld.forEach(karte => {
-        spielerFeldContainer.appendChild(erstelleKarteElement(karte));
-    });
+    // Visuelle Aktualisierung
+    const hexElement = document.querySelector(
+        `.hexagon[data-reihe="${reihe}"][data-spalte="${spalte}"]`
+    );
+    hexElement.classList.remove('leer');
+    hexElement.classList.add('belegt');
+    hexElement.textContent = wuerfel1 + wuerfel2;
 
-    // Gegner Hand (verdeckt)
-    const gegnerHandContainer = document.getElementById('gegner-hand-container');
-    gegnerHandContainer.innerHTML = '';
-    gegnerHand.forEach(karte => {
-        gegnerHandContainer.appendChild(erstelleKarteElement(karte, true));
-    });
+    // Punkte vergeben
+    punkte += wuerfel1 + wuerfel2;
+    document.getElementById('punkte').textContent = punkte;
 
-    // Gegner Feld
-    const gegnerFeldContainer = document.getElementById('gegner-feld-container');
-    gegnerFeldContainer.innerHTML = '';
-    gegnerFeld.forEach(karte => {
-        gegnerFeldContainer.appendChild(erstelleKarteElement(karte, true));
-    });
+    // Würfel zurücksetzen
+    wuerfel1 = 0;
+    wuerfel2 = 0;
+    document.getElementById('wuerfel1').textContent = '?';
+    document.getElementById('wuerfel2').textContent = '?';
+    document.getElementById('plaettchen-info').textContent = 
+        `Plättchen platziert! +${feld.plaettchen.wert} Punkte`;
 
-    // Info Panel
-    document.getElementById('deck-anzahl').textContent = deck.length;
-}
-
-// Spiel initialisieren
-function spielStarten() {
-    // Starthand ziehen
-    for (let i = 0; i < 5; i++) {
-        karteZiehen();
-    }
-    
-    // Gegner bekommt auch Karten
-    for (let i = 0; i < 3; i++) {
-        if (deck.length > 0) {
-            gegnerHand.push(deck.pop());
-        }
-    }
-    
-    aktualisiereAnzeige();
-    console.log("Spiel gestartet!");
+    runde++;
+    document.getElementById('runde').textContent = runde;
 }
 
 // Event Listeners
-document.getElementById('karte-ziehen-btn').addEventListener('click', karteZiehen);
+document.getElementById('wuerfeln-btn').addEventListener('click', wuerfeln);
 
-// Spiel starten
-spielStarten();
+// Spiel initialisieren
+initSpielfeld();
+erstelleHexGrid();
+console.log("Spiel gestartet!");
